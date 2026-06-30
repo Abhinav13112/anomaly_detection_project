@@ -1,7 +1,7 @@
 import streamlit as st
 
-st.title("AI-Driven Anomaly Detection System")
-st.write("Welcome to the Log Analysis Project")
+st.title("LogSentrix AI")
+st.write("Transforming System Logs into Actionable Intelligence..")
 
 uploaded_file = st.file_uploader("Upload a log file")
 
