@@ -3,7 +3,7 @@ import streamlit as st
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="LogSentrix AI",
-    page_icon="assets/logo.png",
+    page_icon="assets/LogSentrixAi logo.png",
     layout="centered"
 )
 
@@ -49,7 +49,7 @@ st.markdown("""
 
 # ---------------- LOGO ----------------
 st.markdown('<div class="logo">', unsafe_allow_html=True)
-st.image("assets/logo.png", width=180)
+st.image("assets/LogSentrixAi logo.png", width=180)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- TITLE ----------------
