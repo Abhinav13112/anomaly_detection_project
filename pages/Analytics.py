@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from src.authentication import init_auth_state, load_custom_css, logout
+from src.authentication import init_auth_state, load_custom_css, render_sidebar
 from src.database import get_threats, get_kpis
 
 # 1. Enforce Authentication
@@ -14,28 +14,7 @@ if not st.session_state.authenticated:
 load_custom_css()
 
 # 3. Sidebar Configuration
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # 4. Header
 st.markdown("<h1 class='cyber-title'>📊 CYBER THREAT ANALYTICS</h1>", unsafe_allow_html=True)
@@ -70,7 +49,7 @@ df['hour'] = df['timestamp'].dt.hour
 df['day_name'] = df['timestamp'].dt.day_name()
 
 # Custom neon colors for Plotly charts
-cyber_colors = ['#00f2fe', '#9b51e0', '#ff007f', '#eab308', '#ef4444', '#10b981']
+cyber_colors = ['#b39ddb', '#ffffff', '#e5deff', '#d4c5ff', '#ef4444', '#10b981']
 
 # 7. Row 1: High Level Threat Summaries
 col_sev, col_types = st.columns(2)
@@ -123,7 +102,7 @@ with col_types:
         y='Threat Category',
         orientation='h',
         color='Count',
-        color_continuous_scale=['#9b51e0', '#00f2fe'],
+        color_continuous_scale=['#b39ddb', '#ffffff'],
         template='plotly_dark'
     )
     fig_bar_types.update_layout(
@@ -157,9 +136,9 @@ with col_trend:
         template='plotly_dark'
     )
     fig_trend.update_traces(
-        line=dict(color='#00f2fe', width=3),
+        line=dict(color='#b39ddb', width=3),
         fill='tozeroy',
-        fillcolor='rgba(0, 242, 254, 0.1)'
+        fillcolor='rgba(179, 157, 219, 0.1)'
     )
     fig_trend.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
@@ -184,7 +163,7 @@ with col_ip:
         x='Source IP',
         y='Alert Count',
         color='Alert Count',
-        color_continuous_scale=['#00f2fe', '#ff007f'],
+        color_continuous_scale=['#b39ddb', '#ffffff'],
         template='plotly_dark'
     )
     fig_ips.update_layout(

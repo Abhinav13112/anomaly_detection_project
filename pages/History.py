@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from src.authentication import init_auth_state, load_custom_css, logout, enforce_permission
+from src.authentication import init_auth_state, load_custom_css, enforce_permission, render_sidebar
 from src.database import get_analyses_history, get_audit_logs
 
 # 1. Enforce Authentication
@@ -13,28 +13,7 @@ if not st.session_state.authenticated:
 load_custom_css()
 
 # 3. Sidebar Configuration
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # 4. Header
 st.markdown("<h1 class='cyber-title'>📁 AUDIT HISTORY & RUNS</h1>", unsafe_allow_html=True)
@@ -96,7 +75,7 @@ with tab_audits:
         st.dataframe(
             filtered_audits.style.map(
                 lambda val: 'color: #9b51e0; font-weight: bold;' if val in ['DB_INIT', 'CREATE_USER', 'CHANGE_SETTING']
-                else ('color: #00f2fe; font-weight: bold;' if val in ['RUN_ANALYSIS', 'UPDATE_THREAT'] else ''),
+                else ('color: #d4c5ff; font-weight: bold;' if val in ['RUN_ANALYSIS', 'UPDATE_THREAT'] else ''),
                 subset=['Action Triggered']
             ),
             use_container_width=True,

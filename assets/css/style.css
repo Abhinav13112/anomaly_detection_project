@@ -1,72 +1,73 @@
-/* LogSentrix AI - Cyber Security Glassmorphism Stylesheet */
+/* LogSentrix AI - Cyber Security Glassmorphism Stylesheet (Lavender White Cyber Theme) */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Share+Tech+Mono&display=swap');
 
 /* Apply primary font style */
 html, body, [class*="css"] {
     font-family: 'Outfit', sans-serif;
-    color: #e2e8f0;
+    color: #f3f0ff;
 }
 
-/* Cyber Theme Variables */
+/* Cyber Theme Variables - Lavender White Mix */
 :root {
-    --bg-color: #030712;
-    --card-bg: rgba(17, 24, 39, 0.7);
-    --border-color: rgba(99, 102, 241, 0.2);
-    --neon-blue: #00f2fe;
-    --neon-purple: #9b51e0;
-    --neon-pink: #ff007f;
-    --glow-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-    --purple-glow: 0 0 15px rgba(155, 81, 224, 0.4);
+    --bg-color: #0b0912;
+    --card-bg: rgba(22, 19, 32, 0.75);
+    --border-color: rgba(189, 160, 254, 0.22);
+    --lavender-bright: #d4c5ff;
+    --lavender-glow: #b39ddb;
+    --lavender-white: #f5f2ff;
+    --pure-white: #ffffff;
+    --glow-shadow: 0 0 15px rgba(189, 160, 254, 0.35);
+    --white-glow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Background Matrix / Grid overlay */
+/* Background Matrix / Grid overlay with lavender tints */
 .stApp {
     background-color: var(--bg-color);
     background-image: 
-        linear-gradient(rgba(18, 24, 38, 0.95), rgba(18, 24, 38, 0.98)),
-        radial-gradient(circle at 50% 120%, rgba(155, 81, 224, 0.15), rgba(3, 7, 18, 0));
+        linear-gradient(rgba(13, 11, 20, 0.96), rgba(13, 11, 20, 0.98)),
+        radial-gradient(circle at 50% 120%, rgba(179, 157, 219, 0.18), rgba(11, 9, 18, 0));
     background-attachment: fixed;
 }
 
 /* Glassmorphism Cyber Card */
 .cyber-card {
     background: var(--card-bg) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     border: 1px solid var(--border-color) !important;
     border-radius: 12px !important;
     padding: 1.5rem !important;
     margin-bottom: 1rem !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .cyber-card:hover {
-    border-color: rgba(0, 242, 254, 0.5) !important;
-    box-shadow: 0 10px 40px 0 rgba(0, 242, 254, 0.15), 0 0 10px rgba(0, 242, 254, 0.1) !important;
-    transform: translateY(-3px);
+    border-color: rgba(212, 197, 255, 0.6) !important;
+    box-shadow: 0 10px 40px 0 rgba(179, 157, 219, 0.2), 0 0 15px rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-2px);
 }
 
 /* Pulsing Cyber Card for Alerts */
 .cyber-card-alert {
-    background: rgba(220, 38, 38, 0.1) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(220, 38, 38, 0.4) !important;
+    background: rgba(239, 68, 68, 0.08) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
     border-radius: 12px !important;
     padding: 1.5rem !important;
-    box-shadow: 0 0 15px rgba(220, 38, 38, 0.2) !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15) !important;
     animation: alertPulse 2s infinite alternate;
 }
 
 @keyframes alertPulse {
     0% {
-        border-color: rgba(220, 38, 38, 0.4);
-        box-shadow: 0 0 10px rgba(220, 38, 38, 0.15);
+        border-color: rgba(239, 68, 68, 0.35);
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
     }
     100% {
-        border-color: rgba(239, 68, 68, 0.8);
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        border-color: rgba(248, 113, 113, 0.7);
+        box-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
     }
 }
 
@@ -76,16 +77,16 @@ html, body, [class*="css"] {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    background: linear-gradient(135deg, var(--lavender-white), var(--lavender-bright));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+    text-shadow: 0 0 12px rgba(179, 157, 219, 0.25);
     margin-bottom: 1.5rem;
 }
 
 .cyber-subtitle {
     font-family: 'Share Tech Mono', monospace;
-    color: #9ca3af;
+    color: #cbd2e0;
     letter-spacing: 1px;
 }
 
@@ -98,100 +99,111 @@ html, body, [class*="css"] {
 }
 
 .kpi-card {
-    background: rgba(17, 24, 39, 0.6);
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    border-left: 4px solid var(--neon-blue);
+    background: rgba(22, 19, 32, 0.55);
+    border: 1px solid rgba(189, 160, 254, 0.15);
+    border-left: 4px solid var(--lavender-bright);
     border-radius: 8px;
     padding: 1.2rem;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.kpi-card:hover {
+    border-left-color: var(--pure-white);
+    box-shadow: 0 4px 20px rgba(179, 157, 219, 0.15);
 }
 
 .kpi-card.anomaly {
-    border-left-color: var(--neon-pink);
+    border-left-color: #f87171;
 }
 
 .kpi-card.accuracy {
-    border-left-color: #10b981;
+    border-left-color: #a7f3d0;
 }
 
 .kpi-card.health {
-    border-left-color: var(--neon-purple);
+    border-left-color: var(--lavender-white);
 }
 
 .kpi-value {
     font-family: 'Share Tech Mono', monospace;
     font-size: 2.2rem;
     font-weight: bold;
-    color: #ffffff;
+    color: var(--pure-white);
     margin-top: 0.2rem;
     line-height: 1;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .kpi-label {
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: #9f96c0;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 /* Custom Alert Banner */
 .alert-banner {
-    padding: 10px 15px;
-    border-radius: 6px;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
-    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: rgba(189, 160, 254, 0.08);
+    border: 1px solid rgba(189, 160, 254, 0.25);
+    color: #e5deff;
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .alert-critical {
-    background: rgba(220, 38, 38, 0.25);
-    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
 }
 
 /* Processing Pipeline Nodes */
 .pipeline-step {
-    padding: 12px;
+    padding: 14px;
     margin: 8px 0;
     border-radius: 8px;
-    background: rgba(31, 41, 55, 0.5);
-    border: 1px solid rgba(75, 85, 99, 0.3);
+    background: rgba(26, 22, 38, 0.6);
+    border: 1px solid rgba(189, 160, 254, 0.15);
     text-align: center;
     transition: all 0.3s;
 }
 
 .pipeline-step.active {
-    background: rgba(59, 130, 246, 0.15);
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+    background: rgba(179, 157, 219, 0.12);
+    border-color: var(--lavender-bright);
+    box-shadow: 0 0 12px rgba(179, 157, 219, 0.25);
+    color: var(--pure-white);
 }
 
 .pipeline-step.complete {
-    background: rgba(16, 185, 129, 0.15);
-    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #030712;
+    background: #0d0b14;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #1f2937;
+    background: #252033;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--neon-blue);
+    background: var(--lavender-bright);
 }
 
 /* Custom recommendations list */
@@ -200,48 +212,127 @@ html, body, [class*="css"] {
     align-items: center;
     margin: 8px 0;
     padding: 8px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 6px;
-    border-left: 3px solid #10b981;
+    border-left: 3px solid var(--lavender-bright);
 }
 
 .rec-item-icon {
-    color: #10b981;
+    color: var(--lavender-bright);
     margin-right: 10px;
     font-weight: bold;
 }
 
 /* Console logs mockup */
 .cyber-console {
-    background-color: #050b14 !important;
-    border: 1px solid rgba(0, 242, 254, 0.3) !important;
-    border-radius: 6px !important;
+    background-color: #07060b !important;
+    border: 1px solid rgba(189, 160, 254, 0.25) !important;
+    border-radius: 8px !important;
     padding: 1rem !important;
     font-family: 'Share Tech Mono', monospace !important;
     font-size: 0.9rem !important;
-    color: #38bdf8 !important;
+    color: #e5deff !important;
     height: 250px;
     overflow-y: auto;
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Logo animation */
+/* Logo animation - Lavender White gradient shift */
 .animated-logo {
     font-family: 'Share Tech Mono', monospace;
     font-size: 2.8rem;
     font-weight: 800;
     text-align: center;
-    color: #fff;
+    color: var(--pure-white);
     text-transform: uppercase;
     position: relative;
-    animation: textShine 4s ease-in-out infinite alternate;
+    background: linear-gradient(120deg, var(--pure-white) 20%, var(--lavender-bright) 50%, var(--pure-white) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite, textPulse 4s ease-in-out infinite alternate;
 }
 
-@keyframes textShine {
-    0% {
-        text-shadow: 0 0 10px rgba(0, 242, 254, 0.5), 0 0 20px rgba(0, 242, 254, 0.3);
-    }
-    100% {
-        text-shadow: 0 0 15px rgba(155, 81, 224, 0.5), 0 0 30px rgba(155, 81, 224, 0.3);
+@keyframes shine {
+    to {
+        background-position: 200% center;
     }
 }
+
+@keyframes textPulse {
+    0% {
+        text-shadow: 0 0 8px rgba(179, 157, 219, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(179, 157, 219, 0.6), 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* ==========================================================================
+   STREAMLIT CORE UI COMPONENT OVERRIDES
+   ========================================================================== */
+
+/* Buttons Styling */
+div.stButton > button {
+    background: rgba(22, 19, 32, 0.8) !important;
+    color: var(--pure-white) !important;
+    border: 1px solid rgba(189, 160, 254, 0.35) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+}
+
+div.stButton > button:hover {
+    background: linear-gradient(135deg, var(--lavender-bright), var(--pure-white)) !important;
+    color: #0b0912 !important;
+    border-color: var(--pure-white) !important;
+    box-shadow: 0 0 15px rgba(179, 157, 219, 0.5), 0 0 5px rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+div.stButton > button:active {
+    transform: translateY(1px) !important;
+}
+
+/* Text Inputs / Textarea Styling */
+div.stTextInput input, div.stTextArea textarea {
+    background-color: rgba(13, 11, 20, 0.8) !important;
+    color: var(--lavender-white) !important;
+    border: 1px solid rgba(189, 160, 254, 0.25) !important;
+    border-radius: 8px !important;
+    padding: 0.6rem !important;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
+    transition: all 0.3s ease !important;
+}
+
+div.stTextInput input:focus, div.stTextArea textarea:focus {
+    border-color: var(--lavender-bright) !important;
+    box-shadow: 0 0 10px rgba(179, 157, 219, 0.4), inset 0 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+/* Custom File Uploader container */
+div[data-testid="stFileUploader"] {
+    background: rgba(22, 19, 32, 0.4) !important;
+    border: 1px dashed rgba(189, 160, 254, 0.4) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    transition: border-color 0.3s ease !important;
+}
+
+div[data-testid="stFileUploader"]:hover {
+    border-color: var(--lavender-bright) !important;
+}
+
+/* Sidebar Custom Styling */
+[data-testid="stSidebar"] {
+    background-color: #08070e !important;
+    border-right: 1px solid rgba(189, 160, 254, 0.15) !important;
+}
+
+/* Hide Default Streamlit Menu & Footer for cleaner look */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {background-color: transparent !important;}

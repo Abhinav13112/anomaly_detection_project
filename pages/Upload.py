@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 import os
-from src.authentication import init_auth_state, load_custom_css, logout, enforce_permission
+from src.authentication import init_auth_state, load_custom_css, enforce_permission, render_sidebar
 from src.database import add_analysis_run, log_action, get_setting
 from src.pre import LogPreprocessor
 from src.feature_extractor import FeatureExtractor
@@ -22,28 +22,7 @@ enforce_permission(["Admin", "Security Analyst"])
 load_custom_css()
 
 # 3. Render Custom Sidebar
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # 4. Header
 st.markdown("<h1 class='cyber-title'>📂 INGEST LOG DATA</h1>", unsafe_allow_html=True)
@@ -182,7 +161,7 @@ if uploaded_file is not None:
             # Summary Metrics Card
             st.markdown(f"""
             <div class="cyber-card">
-                <h3 style="color:#00f2fe; margin-bottom: 10px;">📊 Analysis Summary Result</h3>
+                <h3 style="color:#d4c5ff; margin-bottom: 10px;">📊 Analysis Summary Result</h3>
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
                     <div>Total Processed: <b>{total_logs} logs</b></div>
                     <div>Threats Identified: <b style="color:#ef4444;">{anomalies_count} anomalies</b></div>

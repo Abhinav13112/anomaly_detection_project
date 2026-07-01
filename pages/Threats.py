@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from src.authentication import init_auth_state, load_custom_css, logout, enforce_permission, has_role
+from src.authentication import init_auth_state, load_custom_css, enforce_permission, has_role, render_sidebar
 from src.database import get_threats, update_threat_status
 
 # 1. Enforce Authentication
@@ -13,28 +13,7 @@ if not st.session_state.authenticated:
 load_custom_css()
 
 # 3. Sidebar Configuration
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # 4. Header
 st.markdown("<h1 class='cyber-title'>🚨 THREAT DETECTION CENTER</h1>", unsafe_allow_html=True)
@@ -134,7 +113,7 @@ with col_actions:
         <div style="border-left: 4px solid #ef4444; padding-left: 10px; margin-bottom: 15px;">
             <div style="font-size:0.8rem; color:#9ca3af; text-transform:uppercase;">Threat Vector</div>
             <h4 style="margin:2px 0; color:#fff;">{threat_row['threat_type']}</h4>
-            <span style="font-size:0.8rem; color:#9ca3af;">Confidence: <b>{threat_row['confidence']}%</b> | Source IP: <code style="color:#00f2fe;">{threat_row['ip_address']}</code></span>
+            <span style="font-size:0.8rem; color:#9ca3af;">Confidence: <b>{threat_row['confidence']}%</b> | Source IP: <code style="color:#d4c5ff;">{threat_row['ip_address']}</code></span>
         </div>
         """, unsafe_allow_html=True)
         

@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime
-from src.authentication import init_auth_state, load_custom_css, logout, enforce_permission
+from src.authentication import init_auth_state, load_custom_css, enforce_permission, render_sidebar
 from src.database import get_kpis, get_threats, get_audit_logs
 
 # 1. Enforce Authentication
@@ -13,28 +13,7 @@ if not st.session_state.authenticated:
 load_custom_css()
 
 # 3. Sidebar Setup
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # 4. Header with Live Clock
 col_title, col_clock = st.columns([3, 1])
@@ -145,7 +124,7 @@ with col_alerts:
             <div style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0;">
                 {status_badge}
                 <div style="font-weight: bold; color: #fff; margin-bottom: 4px;">{t['threat_type']} {sev_badge}</div>
-                <div style="font-size: 0.85rem; color: #9ca3af;">Source IP: <code style="color:#00f2fe;">{t['ip_address']}</code> | Time: {t['timestamp']}</div>
+                <div style="font-size: 0.85rem; color: #9ca3af;">Source IP: <code style="color:#d4c5ff;">{t['ip_address']}</code> | Time: {t['timestamp']}</div>
                 <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 4px; font-family: monospace; background:rgba(0,0,0,0.2); padding: 4px; border-radius: 4px;">{t['message']}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -163,7 +142,7 @@ with col_system:
     </div>
     <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <span>Average Pipeline Latency:</span>
-        <span style="color:#00f2fe; font-family:'Share Tech Mono';">{analysis_time}</span>
+        <span style="color:#d4c5ff; font-family:'Share Tech Mono';">{analysis_time}</span>
     </div>
     <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <span>Infrastructure Health:</span>

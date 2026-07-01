@@ -2,7 +2,7 @@ import streamlit as st
 import time
 import pandas as pd
 from datetime import datetime
-from src.authentication import init_auth_state, load_custom_css, logout, enforce_permission
+from src.authentication import init_auth_state, load_custom_css, enforce_permission, render_sidebar
 from src.database import log_action, get_setting
 from src.realtime_monitor import RealTimeMonitor
 from src.alert_system import AlertSystem
@@ -19,28 +19,7 @@ enforce_permission(["Admin", "Security Analyst"])
 load_custom_css()
 
 # 3. Sidebar Configuration
-with st.sidebar:
-    st.markdown(f"""
-    <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
-        <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
-        <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.sidebar.markdown("---")
-    
-    st.markdown(f"""
-    <div class="cyber-card" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; color: #9ca3af;">Active Operator:</div>
-        <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
-        <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
-            {st.session_state.role}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
-        logout()
+render_sidebar()
 
 # Initialize monitor state
 if "monitoring" not in st.session_state:
@@ -99,7 +78,7 @@ st.markdown("""
 <div style='display: flex; gap: 20px; font-family: "Share Tech Mono"; margin-bottom: 20px;'>
     <div style='background:rgba(16,185,129,0.1); border:1px solid #10b981; padding: 4px 10px; border-radius:4px; color:#10b981;'>🟢 SERVER CONNECTED</div>
     <div style='background:rgba(16,185,129,0.1); border:1px solid #10b981; padding: 4px 10px; border-radius:4px; color:#10b981;'>🟢 DATABASE CONNECTED</div>
-    <div style='background:rgba(0,242,254,0.1); border:1px solid #00f2fe; padding: 4px 10px; border-radius:4px; color:#00f2fe;'>🔍 PIPELINE ENFORCED</div>
+    <div style='background:rgba(179,157,219,0.12); border:1px solid #b39ddb; padding: 4px 10px; border-radius:4px; color:#d4c5ff;'>🔍 PIPELINE ENFORCED</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -146,7 +125,7 @@ with col_active_alerts:
             st.markdown(f"""
             <div style="background:rgba(220, 38, 38, 0.08); border-left: 3px solid #ef4444; border-radius: 4px; padding: 8px; margin-bottom: 10px;">
                 <div style="font-weight: bold; color: #fff;">{t['threat_type']} {sev_badge}</div>
-                <div style="font-size: 0.8rem; color: #9ca3af;">Host: <code style="color:#00f2fe;">{t['ip_address']}</code> | Time: {t['timestamp']}</div>
+                <div style="font-size: 0.8rem; color: #9ca3af;">Host: <code style="color:#d4c5ff;">{t['ip_address']}</code> | Time: {t['timestamp']}</div>
                 <div style="font-size: 0.8rem; color: #e2e8f0; font-family: monospace; margin-top:2px;">"{t['message']}"</div>
             </div>
             """, unsafe_allow_html=True)
