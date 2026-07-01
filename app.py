@@ -1,169 +1,59 @@
 import streamlit as st
+from src.authentication import init_auth_state, login_screen, logout, load_custom_css
 
-# ---------------- PAGE CONFIG ---------------- #
-
+# 1. Config page settings
 st.set_page_config(
-    page_title="LogSentrix AI",
-    page_icon="asserts/logo.png",
-    layout="centered"
+    page_title="LogSentrix AI Security Control",
+    page_icon="🛡️",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# ---------------- CUSTOM CSS ---------------- #
-
-st.markdown("""
-<style>
-
-.stApp{
-    background:#0E1117;
-}
-
-.block-container{
-    max-width:950px;
-    padding-top:2rem;
-}
-
-/* HERO CARD */
-
-.hero{
-
-    background:linear-gradient(135deg,#0B1220,#111827);
-
-    border:1px solid rgba(59,130,246,.35);
-
-    border-radius:25px;
-
-    padding:40px;
-
-    text-align:center;
-
-    box-shadow:0px 0px 35px rgba(37,99,235,.15);
-
-}
-
-.hero-title{
-
-    font-size:52px;
-
-    font-weight:800;
-
-    color:white;
-
-    margin-top:10px;
-
-}
-
-.hero-sub{
-
-    font-size:18px;
-
-    color:#AAB4C3;
-
-    margin-top:-10px;
-
-}
-
-/* Upload Card */
-
-.upload-card{
-
-    background:#161B22;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    margin-top:35px;
-
-    border:1px solid #2B3648;
-
-}
-
-/* Footer */
-
-.footer{
-
-    text-align:center;
-
-    color:#6B7280;
-
-    margin-top:40px;
-
-    font-size:14px;
-
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# ---------------- HERO SECTION ---------------- #
-
-st.markdown('<div class="hero">', unsafe_allow_html=True)
-
-st.image("asserts/logo.png", width=170)
-
-st.markdown(
-'<div class="hero-title">LogSentrix AI</div>',
-unsafe_allow_html=True
-)
-
-st.markdown(
-'<div class="hero-sub">Transforming System Logs into Actionable Intelligence</div>',
-unsafe_allow_html=True
-)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ---------------- SPACING ---------------- #
-
-st.write("")
-st.write("")
-
-# ---------------- UPLOAD CARD ---------------- #
-
-st.markdown('<div class="upload-card">', unsafe_allow_html=True)
-
-st.subheader("📂 Upload Log File")
-
-st.caption("Supported file formats: CSV • LOG • TXT")
-
-uploaded_file = st.file_uploader(
-    "",
-    type=["csv", "log", "txt"],
-    label_visibility="collapsed"
-)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ---------------- FILE DETAILS ---------------- #
-
-if uploaded_file is not None:
-
-    st.success("✅ File uploaded successfully!")
-
-    c1, c2 = st.columns(2)
-
-    with c1:
-        st.metric("File Name", uploaded_file.name)
-
-    with c2:
-        st.metric("File Size", f"{uploaded_file.size/1024:.2f} KB")
-
-    st.write("")
-
-    if st.button("🚀 Analyze Logs", use_container_width=True):
-
-        with st.spinner("Analyzing logs..."):
-
-            # Your prediction function goes here
-
-            st.success("Analysis Completed Successfully!")
-
-# ---------------- FOOTER ---------------- #
-
-st.markdown("""
-<div class='footer'>
-
-LogSentrix AI © 2026
-
-</div>
-""", unsafe_allow_html=True)
+# 2. Initialize auth state variables
+init_auth_state()
+
+# 3. Handle routing / page display
+if not st.session_state.authenticated:
+    # Hide sidebar when unauthenticated
+    st.markdown("""
+        <style>
+            [data-testid="stSidebar"] {
+                display: none !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Display login screen
+    login_screen()
+else:
+    # If authenticated, render a quick landing page or auto-redirect to Dashboard
+    load_custom_css()
+    
+    # Render customized branding inside sidebar
+    with st.sidebar:
+        st.markdown(f"""
+        <div class="cyber-card" style="padding: 10px; text-align: center; border-left: 3px solid #00f2fe;">
+            <h3 style="margin: 0; color: #fff; font-family: 'Share Tech Mono';">🛡️ LOGSENTRIX AI</h3>
+            <span style="font-size: 0.8rem; color: #9ca3af;">SIEM SECURITY CONSOLE</span>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.sidebar.markdown("---")
+        
+        # Display Profile info
+        st.markdown(f"""
+        <div class="cyber-card" style="margin-bottom: 20px;">
+            <div style="font-size: 0.8rem; color: #9ca3af;">Authenticated User:</div>
+            <div style="font-weight: bold; color: #00f2fe; font-size: 1.1rem;">@{st.session_state.username}</div>
+            <div style="font-size: 0.75rem; background: rgba(155, 81, 224, 0.2); border: 1px solid rgba(155, 81, 224, 0.4); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 5px; color: #d8b4fe;">
+                {st.session_state.role}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Add logout option
+        if st.sidebar.button("🔐 Terminate Session", use_container_width=True):
+            logout()
+            
+    # Redirect to Dashboard page automatically
+    st.switch_page("pages/Dashboard.py")
