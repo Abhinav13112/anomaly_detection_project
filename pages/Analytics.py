@@ -41,7 +41,7 @@ except ImportError:
     st.stop()
 
 # 6. Load DataFrame
-df = pd.DataFrame(threats_list)
+df = pd.DataFrame([dict(row) for row in threats_list])
 
 # Preprocess DataFrame for chart aggregations
 df['timestamp'] = pd.to_datetime(df['timestamp'])
@@ -77,7 +77,7 @@ with col_sev:
         hole=0.4,
         color='Severity',
         color_discrete_map=color_map,
-        template='plotly_dark'
+        template='plotly_white'
     )
     fig_pie.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
@@ -102,8 +102,8 @@ with col_types:
         y='Threat Category',
         orientation='h',
         color='Count',
-        color_continuous_scale=['#b39ddb', '#ffffff'],
-        template='plotly_dark'
+        color_continuous_scale=['#b39ddb', '#4f46e5'],
+        template='plotly_white'
     )
     fig_bar_types.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
@@ -133,18 +133,18 @@ with col_trend:
         x='hour',
         y='Incidents',
         labels={'hour': 'Hour of Day (0-23)', 'Incidents': 'Alert Counts'},
-        template='plotly_dark'
+        template='plotly_white'
     )
     fig_trend.update_traces(
-        line=dict(color='#b39ddb', width=3),
+        line=dict(color='#6366f1', width=3),
         fill='tozeroy',
-        fillcolor='rgba(179, 157, 219, 0.1)'
+        fillcolor='rgba(99, 102, 241, 0.08)'
     )
     fig_trend.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=False, tickmode='linear', tick0=0, dtick=4),
-        yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.05)'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.08)'),
         margin=dict(t=10, b=10, l=10, r=10)
     )
     st.plotly_chart(fig_trend, use_container_width=True)
@@ -163,14 +163,14 @@ with col_ip:
         x='Source IP',
         y='Alert Count',
         color='Alert Count',
-        color_continuous_scale=['#b39ddb', '#ffffff'],
-        template='plotly_dark'
+        color_continuous_scale=['#b39ddb', '#4f46e5'],
+        template='plotly_white'
     )
     fig_ips.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=False),
-        yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.05)'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.08)'),
         margin=dict(t=10, b=10, l=10, r=10),
         coloraxis_showscale=False
     )
@@ -191,7 +191,7 @@ with col_heat:
         pivot_df,
         labels=dict(x="Threat Category", y="Hour of Day", color="Occurrences"),
         color_continuous_scale='Viridis',
-        template='plotly_dark'
+        template='plotly_white'
     )
     fig_heat.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
@@ -211,14 +211,14 @@ with col_hist:
         x='confidence',
         nbins=20,
         labels={'confidence': 'Model Confidence (%)'},
-        template='plotly_dark',
-        color_discrete_sequence=['#9b51e0']
+        template='plotly_white',
+        color_discrete_sequence=['#6366f1']
     )
     fig_hist.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=False),
-        yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.05)'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.08)'),
         margin=dict(t=10, b=10, l=10, r=10)
     )
     st.plotly_chart(fig_hist, use_container_width=True)

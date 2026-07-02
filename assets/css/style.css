@@ -1,73 +1,103 @@
-/* LogSentrix AI - Cyber Security Glassmorphism Stylesheet (Lavender White Cyber Theme) */
+/* LogSentrix AI - Cyber Security Glassmorphism Stylesheet (Lavender White Light Cyber Theme) */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Share+Tech+Mono&display=swap');
 
-/* Apply primary font style */
+/* Apply primary font style and set base size (+3px over browser default, i.e., 16px -> 19px) */
 html, body, [class*="css"] {
     font-family: 'Outfit', sans-serif;
-    color: #f3f0ff;
+    font-size: 19px !important; 
+    color: #000000; /* Main body text is now black */
 }
 
-/* Cyber Theme Variables - Lavender White Mix */
+/* Cyber Theme Variables - Lavender White Mix (Light Theme Mode) */
 :root {
-    --bg-color: #0b0912;
-    --card-bg: rgba(22, 19, 32, 0.75);
-    --border-color: rgba(189, 160, 254, 0.22);
-    --lavender-bright: #d4c5ff;
-    --lavender-glow: #b39ddb;
-    --lavender-white: #f5f2ff;
-    --pure-white: #ffffff;
-    --glow-shadow: 0 0 15px rgba(189, 160, 254, 0.35);
-    --white-glow: 0 0 15px rgba(255, 255, 255, 0.2);
+    --bg-color: #f7f6fb; /* Light grayish lavender background */
+    --card-bg: rgba(255, 255, 255, 0.85); /* Semi-transparent white card */
+    --border-color: rgba(142, 102, 255, 0.25); /* Subtle purple borders */
+    --lavender-bright: #6366f1; /* Indigo / Bright Lavender for text/buttons */
+    --lavender-glow: #8b5cf6; /* Violet glow */
+    --lavender-white: #000000; /* Dark purple/indigo mapped to black */
+    --pure-white: #000000; /* Mapped to black for headings */
+    --glow-shadow: 0 4px 20px rgba(139, 92, 246, 0.12); /* Soft light shadow */
+    --white-glow: 0 4px 20px rgba(99, 102, 241, 0.08);
 }
 
-/* Background Matrix / Grid overlay with lavender tints */
+/* Background Matrix / Grid overlay with light lavender tints */
 .stApp {
     background-color: var(--bg-color);
     background-image: 
-        linear-gradient(rgba(13, 11, 20, 0.96), rgba(13, 11, 20, 0.98)),
-        radial-gradient(circle at 50% 120%, rgba(179, 157, 219, 0.18), rgba(11, 9, 18, 0));
+        linear-gradient(rgba(247, 246, 251, 0.95), rgba(247, 246, 251, 0.97)),
+        radial-gradient(circle at 50% 120%, rgba(139, 92, 246, 0.15), rgba(247, 246, 251, 0));
     background-attachment: fixed;
 }
 
-/* Glassmorphism Cyber Card */
+/* Hide empty card markers (unwanted boxes) */
+.cyber-card:empty, .cyber-card-alert:empty {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* Global styling for explicit, non-empty cyber cards */
 .cyber-card {
     background: var(--card-bg) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 1px solid var(--border-color) !important;
     border-radius: 12px !important;
-    padding: 1.5rem !important;
-    margin-bottom: 1rem !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    padding: calc(1.5rem + 3px) !important;
+    margin-bottom: 1.2rem !important;
+    box-shadow: 0 8px 32px 0 rgba(103, 58, 183, 0.06) !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
-.cyber-card:hover {
-    border-color: rgba(212, 197, 255, 0.6) !important;
-    box-shadow: 0 10px 40px 0 rgba(179, 157, 219, 0.2), 0 0 15px rgba(255, 255, 255, 0.15) !important;
-    transform: translateY(-2px);
+/* 
+   Style innermost vertical blocks that contain our empty card markers.
+   This places all adjacent sibling Streamlit widgets (inputs, labels, buttons)
+   inside the styled card container seamlessly!
+*/
+div[data-testid="stVerticalBlock"]:not(:has(div[data-testid="stVerticalBlock"]:has(.cyber-card:empty))):has(.cyber-card:empty),
+div[data-testid="column"] div[data-testid="stVerticalBlock"]:has(.cyber-card:empty) {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    padding: calc(1.5rem + 3px) !important;
+    box-shadow: 0 8px 32px 0 rgba(103, 58, 183, 0.06) !important;
+    margin-bottom: 1.2rem !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
-/* Pulsing Cyber Card for Alerts */
-.cyber-card-alert {
-    background: rgba(239, 68, 68, 0.08) !important;
+div[data-testid="stVerticalBlock"]:not(:has(div[data-testid="stVerticalBlock"]:has(.cyber-card:empty))):has(.cyber-card:empty):hover,
+div[data-testid="column"] div[data-testid="stVerticalBlock"]:has(.cyber-card:empty):hover {
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 10px 40px 0 rgba(139, 92, 246, 0.12), 0 0 15px rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Alert Card containers styling */
+div[data-testid="stVerticalBlock"]:not(:has(div[data-testid="stVerticalBlock"]:has(.cyber-card-alert:empty))):has(.cyber-card-alert:empty),
+div[data-testid="column"] div[data-testid="stVerticalBlock"]:has(.cyber-card-alert:empty) {
+    background: rgba(239, 68, 68, 0.06) !important;
     backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(239, 68, 68, 0.35) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
     border-radius: 12px !important;
-    padding: 1.5rem !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15) !important;
+    padding: calc(1.5rem + 3px) !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.08) !important;
     animation: alertPulse 2s infinite alternate;
+    margin-bottom: 1.2rem !important;
 }
 
 @keyframes alertPulse {
     0% {
-        border-color: rgba(239, 68, 68, 0.35);
-        box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+        border-color: rgba(239, 68, 68, 0.3);
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.05);
     }
     100% {
-        border-color: rgba(248, 113, 113, 0.7);
-        box-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
+        border-color: rgba(239, 68, 68, 0.6);
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
     }
 }
 
@@ -77,114 +107,121 @@ html, body, [class*="css"] {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: linear-gradient(135deg, var(--lavender-white), var(--lavender-bright));
+    background: linear-gradient(135deg, #000000, #6366f1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 12px rgba(179, 157, 219, 0.25);
+    text-shadow: 0 0 12px rgba(99, 102, 241, 0.1);
     margin-bottom: 1.5rem;
 }
 
 .cyber-subtitle {
     font-family: 'Share Tech Mono', monospace;
-    color: #cbd2e0;
+    color: #4b5563;
     letter-spacing: 1px;
 }
 
-/* KPI Metric Grid */
+/* KPI Metric Grid - Gap reduced by 2px (now +3px over original) */
 .metric-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: calc(1rem + 3px);
     margin-bottom: 2rem;
 }
 
+/* KPI Card - Padding reduced by 2px (now +3px over original) */
 .kpi-card {
-    background: rgba(22, 19, 32, 0.55);
-    border: 1px solid rgba(189, 160, 254, 0.15);
-    border-left: 4px solid var(--lavender-bright);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-left: 5px solid var(--lavender-bright);
     border-radius: 8px;
-    padding: 1.2rem;
+    padding: calc(1.2rem + 3px);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(103, 58, 183, 0.04);
     transition: all 0.3s ease;
 }
 
 .kpi-card:hover {
-    border-left-color: var(--pure-white);
-    box-shadow: 0 4px 20px rgba(179, 157, 219, 0.15);
+    border-left-color: var(--lavender-glow);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
 }
 
 .kpi-card.anomaly {
-    border-left-color: #f87171;
+    border-left-color: #ef4444;
 }
 
 .kpi-card.accuracy {
-    border-left-color: #a7f3d0;
+    border-left-color: #10b981;
 }
 
 .kpi-card.health {
-    border-left-color: var(--lavender-white);
+    border-left-color: #8b5cf6;
 }
 
+/* KPI value and label sizes scaled (+3px over original) */
 .kpi-value {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 2.2rem;
+    font-size: calc(2.2rem + 3px); 
     font-weight: bold;
-    color: var(--pure-white);
+    color: #000000;
     margin-top: 0.2rem;
     line-height: 1;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+/* Kept slightly more compact to prevent label wrapping/cutting off */
 .kpi-label {
-    font-size: 0.85rem;
-    color: #9f96c0;
+    font-size: calc(0.85rem + 1px) !important; 
+    color: #3f3b5c;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 1.2 !important;
+    word-wrap: break-word !important;
 }
 
-/* Custom Alert Banner */
+/* Custom Alert Banner - Padding reduced by 2px */
 .alert-banner {
-    padding: 12px 18px;
+    padding: 15px 21px; 
     border-radius: 8px;
-    background: rgba(189, 160, 254, 0.08);
-    border: 1px solid rgba(189, 160, 254, 0.25);
-    color: #e5deff;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: #000000;
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .alert-critical {
-    background: rgba(239, 68, 68, 0.12);
-    border-color: rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #b91c1c;
 }
 
-/* Processing Pipeline Nodes */
+/* Processing Pipeline Nodes - Padding reduced by 2px */
 .pipeline-step {
-    padding: 14px;
+    padding: 17px; 
     margin: 8px 0;
     border-radius: 8px;
-    background: rgba(26, 22, 38, 0.6);
-    border: 1px solid rgba(189, 160, 254, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(139, 92, 246, 0.15);
     text-align: center;
     transition: all 0.3s;
+    color: #000000;
 }
 
 .pipeline-step.active {
-    background: rgba(179, 157, 219, 0.12);
+    background: rgba(99, 102, 241, 0.08);
     border-color: var(--lavender-bright);
-    box-shadow: 0 0 12px rgba(179, 157, 219, 0.25);
-    color: var(--pure-white);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.1);
+    color: #000000;
+    font-weight: bold;
 }
 
 .pipeline-step.complete {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #065f46;
 }
 
 /* Custom Scrollbar */
@@ -194,11 +231,11 @@ html, body, [class*="css"] {
 }
 
 ::-webkit-scrollbar-track {
-    background: #0d0b14;
+    background: #f7f6fb;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #252033;
+    background: #ded9f3;
     border-radius: 4px;
 }
 
@@ -206,15 +243,16 @@ html, body, [class*="css"] {
     background: var(--lavender-bright);
 }
 
-/* Custom recommendations list */
+/* Custom recommendations list - Padding reduced by 2px */
 .rec-item {
     display: flex;
     align-items: center;
     margin: 8px 0;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.02);
+    padding: 11px; 
+    background: rgba(99, 102, 241, 0.04);
     border-radius: 6px;
-    border-left: 3px solid var(--lavender-bright);
+    border-left: 4px solid var(--lavender-bright);
+    color: #000000;
 }
 
 .rec-item-icon {
@@ -223,30 +261,30 @@ html, body, [class*="css"] {
     font-weight: bold;
 }
 
-/* Console logs mockup */
+/* Console logs mockup - padding/font size reduced by 2px */
 .cyber-console {
-    background-color: #07060b !important;
-    border: 1px solid rgba(189, 160, 254, 0.25) !important;
+    background-color: #faf9fd !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
     border-radius: 8px !important;
-    padding: 1rem !important;
+    padding: calc(1rem + 3px) !important; 
     font-family: 'Share Tech Mono', monospace !important;
-    font-size: 0.9rem !important;
-    color: #e5deff !important;
-    height: 250px;
+    font-size: calc(0.9rem + 3px) !important; 
+    color: #000000 !important;
+    height: 270px;
     overflow-y: auto;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8) !important;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.02) !important;
 }
 
-/* Logo animation - Lavender White gradient shift */
+/* Logo animation - Text size reduced by 2px */
 .animated-logo {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 2.8rem;
+    font-size: calc(2.8rem + 3px); 
     font-weight: 800;
     text-align: center;
-    color: var(--pure-white);
+    color: #000000;
     text-transform: uppercase;
     position: relative;
-    background: linear-gradient(120deg, var(--pure-white) 20%, var(--lavender-bright) 50%, var(--pure-white) 80%);
+    background: linear-gradient(120deg, #000000 20%, #6366f1 50%, #000000 80%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -261,10 +299,10 @@ html, body, [class*="css"] {
 
 @keyframes textPulse {
     0% {
-        text-shadow: 0 0 8px rgba(179, 157, 219, 0.3);
+        text-shadow: 0 0 8px rgba(99, 102, 241, 0.1);
     }
     100% {
-        text-shadow: 0 0 20px rgba(179, 157, 219, 0.6), 0 0 5px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 20px rgba(99, 102, 241, 0.3), 0 0 5px rgba(255, 255, 255, 0.5);
     }
 }
 
@@ -272,24 +310,23 @@ html, body, [class*="css"] {
    STREAMLIT CORE UI COMPONENT OVERRIDES
    ========================================================================== */
 
-/* Buttons Styling */
+/* Buttons Styling - Padding reduced by 2px */
 div.stButton > button {
-    background: rgba(22, 19, 32, 0.8) !important;
-    color: var(--pure-white) !important;
-    border: 1px solid rgba(189, 160, 254, 0.35) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #000000 !important;
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
     border-radius: 8px !important;
-    padding: 0.5rem 1rem !important;
+    padding: calc(0.5rem + 3px) calc(1rem + 3px) !important; 
     font-weight: 600 !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+    box-shadow: 0 4px 10px rgba(103, 58, 183, 0.05) !important;
 }
 
 div.stButton > button:hover {
-    background: linear-gradient(135deg, var(--lavender-bright), var(--pure-white)) !important;
-    color: #0b0912 !important;
-    border-color: var(--pure-white) !important;
-    box-shadow: 0 0 15px rgba(179, 157, 219, 0.5), 0 0 5px rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(135deg, var(--lavender-bright), var(--lavender-glow)) !important;
+    color: #ffffff !important;
+    border-color: var(--lavender-glow) !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2) !important;
     transform: translateY(-1px) !important;
 }
 
@@ -297,28 +334,28 @@ div.stButton > button:active {
     transform: translateY(1px) !important;
 }
 
-/* Text Inputs / Textarea Styling */
+/* Text Inputs / Textarea Styling - Padding reduced by 2px */
 div.stTextInput input, div.stTextArea textarea {
-    background-color: rgba(13, 11, 20, 0.8) !important;
-    color: var(--lavender-white) !important;
-    border: 1px solid rgba(189, 160, 254, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #000000 !important;
+    border: 1px solid rgba(139, 92, 246, 0.25) !important;
     border-radius: 8px !important;
-    padding: 0.6rem !important;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
+    padding: calc(0.6rem + 3px) !important; 
     transition: all 0.3s ease !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02) !important;
 }
 
 div.stTextInput input:focus, div.stTextArea textarea:focus {
     border-color: var(--lavender-bright) !important;
-    box-shadow: 0 0 10px rgba(179, 157, 219, 0.4), inset 0 2px 4px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.15) !important;
 }
 
-/* Custom File Uploader container */
+/* Custom File Uploader container - Padding reduced by 2px */
 div[data-testid="stFileUploader"] {
-    background: rgba(22, 19, 32, 0.4) !important;
-    border: 1px dashed rgba(189, 160, 254, 0.4) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px dashed rgba(139, 92, 246, 0.3) !important;
     border-radius: 12px !important;
-    padding: 1.5rem !important;
+    padding: calc(1.5rem + 3px) !important; 
     transition: border-color 0.3s ease !important;
 }
 
@@ -328,11 +365,205 @@ div[data-testid="stFileUploader"]:hover {
 
 /* Sidebar Custom Styling */
 [data-testid="stSidebar"] {
-    background-color: #08070e !important;
-    border-right: 1px solid rgba(189, 160, 254, 0.15) !important;
+    background-color: #f3f2fa !important;
+    border-right: 1px solid rgba(139, 92, 246, 0.15) !important;
 }
 
 /* Hide Default Streamlit Menu & Footer for cleaner look */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {background-color: transparent !important;}
+
+
+/* ==========================================================================
+   LIGHT THEME INTERFERENCE OVERRIDES FOR INLINE STYLING IN PYTHON SOURCES
+   ========================================================================== */
+
+/* 
+   Sidebar navigation links contrast and sizing stability.
+   Locks size to exactly 16px to match Streamlit's default font size.
+*/
+[data-testid="stSidebarNav"] a,
+[data-testid="stSidebarNav"] a *,
+[data-testid="stSidebarNavItems"] a,
+[data-testid="stSidebarNavItems"] a * {
+    color: #000000 !important;
+    font-size: 16px !important; /* Locked to match default */
+}
+
+[data-testid="stSidebarNav"] ul li div a {
+    color: #000000 !important;
+    font-size: 16px !important;
+    border-radius: 6px !important;
+    padding: 6px 10px !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stSidebarNav"] ul li div a:hover {
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    color: #6366f1 !important;
+}
+
+[data-testid="stSidebarNav"] ul li div a[aria-current="page"],
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background-color: rgba(99, 102, 241, 0.12) !important;
+    color: #6366f1 !important;
+    font-weight: bold !important;
+}
+
+[data-testid="stSidebarNav"] ul li div a[aria-current="page"] span,
+[data-testid="stSidebarNav"] a[aria-current="page"] span {
+    color: #6366f1 !important;
+    font-size: 16px !important;
+}
+
+/* Sidebar navigation icon sizing stability */
+[data-testid="stSidebarNav"] ul li div a svg,
+[data-testid="stSidebarNav"] svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Forcing Light Theme Text Visibility - HEADERS FORCED TO BLACK */
+h1, h2, h3, h4, h5, h6, 
+[data-testid="stHeader"], 
+.stSubheader, 
+div[data-testid="stMarkdownContainer"] h3,
+div[data-testid="stMarkdownContainer"] h2,
+div[data-testid="stMarkdownContainer"] h1 {
+    color: #000000 !important;
+}
+
+/* Form labels, widget labels, selectbox labels FORCED TO BLACK */
+label, 
+div[data-testid="stWidgetLabel"] p, 
+.stWidgetLabel,
+div[data-testid="stWidgetLabel"] span {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Text inputs, typed text, and placeholders */
+div[data-testid="stTextInput"] input, 
+div[data-testid="stTextArea"] textarea, 
+input, 
+textarea,
+select {
+    color: #000000 !important;
+    font-size: calc(1rem + 1px) !important;
+}
+
+/* Placeholder text visibility override */
+input::placeholder, 
+textarea::placeholder, 
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: #52525b !important; /* zinc 600 (darker for readability) */
+    opacity: 1 !important;
+}
+
+/* Password eye visibility toggle button */
+div[data-testid="stTextInput"] button {
+    color: #000000 !important;
+    background-color: transparent !important;
+}
+
+/* Force all text wrapper elements inside cyber cards to black */
+.cyber-card, 
+.cyber-card *, 
+div[data-testid="stVerticalBlock"]:has(.cyber-card:empty) * {
+    color: #000000 !important;
+}
+
+.cyber-card code {
+    color: #4f46e5 !important;
+    background-color: #f1f0fa !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+}
+
+/* Styling report format option boxes in light mode */
+div[style*="background:rgba(255, 255, 255, 0.03)"],
+div[style*="background: rgba(255, 255, 255, 0.03)"] {
+    background-color: rgba(99, 102, 241, 0.04) !important;
+    border: 1px dashed rgba(139, 92, 246, 0.3) !important;
+}
+
+/* 
+   PERMUTATION OVERRIDES FOR INLINE STYLING IN PYTHON CODE SAMPLES.
+   Intercepts and converts any white, light-lavender, or light-slate colors to black.
+*/
+[style*="color:#fff"], [style*="color: #fff"], 
+[style*="color:#FFF"], [style*="color: #FFF"],
+[style*="color:#ffffff"], [style*="color: #ffffff"],
+[style*="color:#FFFFFF"], [style*="color: #FFFFFF"],
+[style*="color:#f3f0ff"], [style*="color: #f3f0ff"],
+[style*="color:#f5f2ff"], [style*="color: #f5f2ff"],
+[style*="color:#e2e8f0"], [style*="color: #e2e8f0"],
+[style*="color:#e5deff"], [style*="color: #e5deff"] {
+    color: #000000 !important;
+}
+
+[style*="color:#cbd5e1"], [style*="color: #cbd5e1"],
+[style*="color:#cbd5e0"], [style*="color: #cbd5e0"] {
+    color: #000000 !important;
+}
+
+[style*="color:#9ca3af"], [style*="color: #9ca3af"],
+[style*="color:#9f96c0"], [style*="color: #9f96c0"],
+[style*="color:#6b7280"], [style*="color: #6b7280"] {
+    color: #3f3b5c !important;
+}
+
+[style*="color:#d4c5ff"], [style*="color: #d4c5ff"] {
+    color: #4f46e5 !important;
+}
+
+[style*="color:#d8b4fe"], [style*="color: #d8b4fe"] {
+    color: #7c3aed !important;
+}
+
+[style*="color:#a7f3d0"], [style*="color: #a7f3d0"] {
+    color: #065f46 !important;
+}
+
+[style*="color:#10b981"], [style*="color: #10b981"] {
+    color: #047857 !important;
+}
+
+/* Audit Logs override */
+span[style*="color: #e2e8f0"] {
+    color: #000000 !important;
+}
+
+/* Custom badges colors in light mode */
+span[style*="border: 1px solid #ef4444"] {
+    color: #b91c1c !important;
+    background-color: rgba(239, 68, 68, 0.12) !important;
+}
+
+span[style*="border: 1px solid #f97316"] {
+    color: #c2410c !important;
+    background-color: rgba(249, 115, 22, 0.12) !important;
+}
+
+span[style*="border: 1px solid #eab308"] {
+    color: #854d0e !important;
+    background-color: rgba(234, 179, 8, 0.15) !important;
+}
+
+/* Inline background logs text override */
+div[style*="background:rgba(0,0,0,0.2)"] {
+    background-color: #f1f0f9 !important;
+    color: #000000 !important;
+}
+
+/* Live Monitor / Console style corrections */
+.cyber-console pre {
+    color: #000000 !important;
+}
+
+/* Dataframe and Tables */
+.stDataFrame, div[data-testid="stTable"] {
+    color: #000000 !important;
+}

@@ -64,6 +64,12 @@ def init_db():
     )
     """)
     
+    # Migration: Add xai_explanations column if missing
+    try:
+        cursor.execute("ALTER TABLE detected_threats ADD COLUMN xai_explanations TEXT")
+    except sqlite3.OperationalError:
+        pass # column already exists
+    
     # 4. Create Audit Logs Table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS audit_logs (
@@ -181,13 +187,13 @@ def get_analyses_history(limit=50):
     return rows
 
 # Threat Management
-def add_threat(analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation):
+def add_threat(analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation, xai_explanations=None):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO detected_threats (analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Open')
-    """, (analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation))
+        INSERT INTO detected_threats (analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation, xai_explanations, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Open')
+    """, (analysis_id, timestamp, ip_address, status_code, message, threat_type, severity, confidence, remediation, xai_explanations))
     threat_id = cursor.lastrowid
     conn.commit()
     conn.close()

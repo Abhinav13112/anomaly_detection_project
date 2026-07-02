@@ -32,7 +32,7 @@ if not threats:
     st.stop()
 
 # Convert threats list to Pandas DataFrame
-df = pd.DataFrame(threats)
+df = pd.DataFrame([dict(row) for row in threats])
 
 # 6. Filters & Search Section
 st.markdown("<div class='cyber-card'>", unsafe_allow_html=True)
@@ -120,7 +120,7 @@ with col_actions:
         # Explainable AI Explanation Box
         st.markdown("<div style='background:rgba(0,0,0,0.2); padding:10px; border-radius:6px; margin-bottom:15px;'>", unsafe_allow_html=True)
         st.write("📖 **Explainable AI (XAI) Trigger:**")
-        st.write(threat_row['xai_explanations'])
+        st.write(threat_row.get('xai_explanations') or "No explainable details logged for this alert.")
         st.write(f"**Log Message:** `{threat_row['message']}`")
         st.markdown("</div>", unsafe_allow_html=True)
         

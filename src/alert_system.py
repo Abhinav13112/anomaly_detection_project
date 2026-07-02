@@ -166,7 +166,8 @@ class AlertSystem:
                     threat_type=threat['threat_type'],
                     severity=threat['severity'],
                     confidence=threat['confidence'],
-                    remediation=threat['remediation']
+                    remediation=threat['remediation'],
+                    xai_explanations=threat.get('xai_explanations')
                 )
                 
             # Trigger notifications
